@@ -90,6 +90,17 @@ const HospitalVisit = () => {
               ))}
             </div>
           )}
+          {/* new patient */}
+          <div className="w-full flex flex-col gap-5 items-center">
+            <h1>Register a New Patient</h1>
+            <div className="w-full flex items-center justify-center">
+              <Button 
+              onClick={()=>router.push('patient-registration')}
+              className="bg-green-1 w-1/2">
+                Register
+              </Button>
+            </div>
+          </div>
 
           {/* Payment Method Selection */}
           <h1 className="text-lg font-semibold">Select Payment Method</h1>
