@@ -1,18 +1,39 @@
-import { pgTable, serial, text, integer, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, integer, timestamp, date } from "drizzle-orm/pg-core";
 
 // Patients Table
 export const patients = pgTable("patients", {
   id: serial("id").primaryKey(),
-  name: text("name").notNull(),
+  firstName: text("first_name").notNull(),
+  middleName: text("middle_name"),
+  lastName: text("last_name").notNull(),
   rank: text("rank"),
   unit: text("unit"),
-  phone: text("phone").unique(),
-  sex: text("sex"),
-  dob: text("dob"),
+  phone: text("phone").unique().notNull(),
+  secondaryPhone: text("secondary_phone"),
+  email: text("email").unique().notNull(),
+  sex: text("sex").notNull(),
+  dob: date("dob").notNull(),
+  bloodType: text("blood_type"),
+  maritalStatus: text("marital_status"),
+  homeAddress: text("home_address"),
+  county: text("county"),
+  city: text("city"),
+  postalCode: text("postal_code"),
+  
+  // Emergency Contact
+  emergencyName: text("emergency_name").notNull(),
+  emergencyRelation: text("emergency_relation").notNull(),
+  emergencyPhone: text("emergency_phone").notNull(),
+  emergencyEmail: text("emergency_email"),
+
+  // Insurance
   insuranceProvider: text("insurance_provider"),
   insuranceNumber: text("insurance_number").unique(),
+  insuranceExpiry: date("insurance_expiry"),
+
   createdAt: timestamp("created_at").defaultNow(),
 });
+
 
 // Doctors Table
 export const doctors = pgTable("doctors", {
