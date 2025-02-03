@@ -21,14 +21,14 @@ const HospitalVisit = () => {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [filteredResults, setFilteredResults] = useState<User[]>([]);
-  const {selectedUser, setSelectedUser} = useUserStore()
+  const [paymentMethod, setPaymentMethod] = useState<string | null>(null); // Store selected payment method
+  const { selectedUser, setSelectedUser } = useUserStore();
   const router = useRouter();
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
 
-    // Filter user data based on the query
     if (value.trim() === "") {
       setFilteredResults([]);
     } else {
@@ -46,12 +46,17 @@ const HospitalVisit = () => {
     setSelectedUser(user);
     setFilteredResults([]);
   };
+
   const handleContinue = () => {
-    if (selectedUser) {
-      setIsOpen(true);
-    } else {
-      alert("Please select a user before continuing.");
+    if (!selectedUser) {
+      alert("Please select a patient before continuing.");
+      return;
     }
+    if (!paymentMethod) {
+      alert("Please select a payment method.");
+      return;
+    }
+    setIsOpen(true);
   };
 
   return (
@@ -61,9 +66,10 @@ const HospitalVisit = () => {
           Welcome to Lanet Regional Hospital
         </h1>
         <p className="text-center text-gray-400 mt-3">
-          Enter the patients Service Number/Name
+          Enter the {"patient's"} Service Number/Name
         </p>
         <div className="mt-10 flex justify-center items-center gap-10 flex-col">
+          {/* Patient Search */}
           <Input
             placeholder="Enter Service Number"
             value={query}
@@ -84,70 +90,100 @@ const HospitalVisit = () => {
               ))}
             </div>
           )}
+
+          {/* Payment Method Selection */}
+          <h1 className="text-lg font-semibold">Select Payment Method</h1>
+          <div className="flex flex-row gap-2">
+            <button
+              className={`p-3 border rounded-md w-full ${
+                paymentMethod === "Insurance" ? "bg-green-1 text-white" : "bg-gray-100"
+              }`}
+              onClick={() => setPaymentMethod("Insurance")}
+            >
+              Insurance
+            </button>
+            <button
+              className={`p-3 border rounded-md w-full ${
+                paymentMethod === "M-Pesa" ? "bg-green-1  text-white" : "bg-gray-100"
+              }`}
+              onClick={() => setPaymentMethod("M-Pesa")}
+            >
+              M-Pesa
+            </button>
+            <button
+              className={`p-3 border rounded-md w-full ${
+                paymentMethod === "Card" ? "bg-green-1 text-white" : "bg-gray-100"
+              }`}
+              onClick={() => setPaymentMethod("Card")}
+            >
+              Card Payment
+            </button>
+          </div>
+
+          {/* Continue Button */}
           <Button onClick={handleContinue} className="w-1/2 bg-green-1">
             Continue
           </Button>
         </div>
-        <div>
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent className="font-poppins">
-              <h1 className="font-poppins text-center mb-5 text-lg">
-                welcome to Lanet Regional Hospital{" "}
-                <span className="font-semibold">
-                  {selectedUser?.rank} {selectedUser?.name}
-                </span>
-              </h1>
-              <div className="flex flex-col gap-5">
-                <div className="gap-2 flex flex-col">
-                  <label htmlFor="service">Service Number</label>
-                  <div className="focus-visible:ring-0 focus-visible:ring-offset-0 border p-2 rounded-md">
-                    {selectedUser?.id}{" "}
-                  </div>
+
+        {/* Dialog Confirmation */}
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogContent className="font-poppins">
+            <h1 className="font-poppins text-center mb-5 text-lg">
+              Welcome to Lanet Regional Hospital{" "}
+              <span className="font-semibold">
+                {selectedUser?.rank} {selectedUser?.name}
+              </span>
+            </h1>
+            <div className="flex flex-col gap-5">
+              {/* Patient Details */}
+              <div className="gap-2 flex flex-col">
+                <label>Service Number</label>
+                <div className="border p-2 rounded-md">{selectedUser?.id}</div>
+              </div>
+              <div className="flex flex-row gap-3 w-full">
+                <div className="gap-2 flex flex-col w-1/2">
+                  <label>Sex</label>
+                  <div className="border p-2 rounded-md">{selectedUser?.sex}</div>
                 </div>
-                <div className="flex flex-row gap-3 w-full">
-                  <div className="gap-2 flex flex-col w-1/2">
-                    <label htmlFor="service">Sex</label>
-                    <div className="focus-visible:ring-0 focus-visible:ring-offset-0 border p-2 rounded-md">
-                      {selectedUser?.sex}{" "}
-                    </div>
-                  </div>
-                  <div className="gap-2 flex flex-col w-1/2">
-                    <label htmlFor="service">Date of Birth</label>
-                    <div className="focus-visible:ring-0 focus-visible:ring-offset-0 border p-2 rounded-md">
-                      {selectedUser?.dob}{" "}
-                    </div>
-                  </div>
-                </div>
-                <div className="gap-2 flex flex-col">
-                  <label htmlFor="service">Rank</label>
-                  <div className="focus-visible:ring-0 focus-visible:ring-offset-0 border p-2 rounded-md">
-                    {selectedUser?.rank}{" "}
-                  </div>
-                </div>
-                <div className="gap-2 flex flex-col">
-                  <label htmlFor="service">Unit</label>
-                  <div className="focus-visible:ring-0 focus-visible:ring-offset-0 border p-2 rounded-md">
-                    {selectedUser?.unit}{" "}
-                  </div>
+                <div className="gap-2 flex flex-col w-1/2">
+                  <label>Date of Birth</label>
+                  <div className="border p-2 rounded-md">{selectedUser?.dob}</div>
                 </div>
               </div>
-              <div className="w-full flex items-center justify-center">
-                <Button
-                  onClick={() =>
-                    router.push(
-                      `/triage?user=${encodeURIComponent(
-                        JSON.stringify(selectedUser)
-                      )}`
-                    )
-                  }
-                  className="bg-green-1"
-                >
-                  Continue to Triage
-                </Button>
+              <div className="gap-2 flex flex-col">
+                <label>Rank</label>
+                <div className="border p-2 rounded-md">{selectedUser?.rank}</div>
               </div>
-            </DialogContent>
-          </Dialog>
-        </div>
+              <div className="gap-2 flex flex-col">
+                <label>Unit</label>
+                <div className="border p-2 rounded-md">{selectedUser?.unit}</div>
+              </div>
+
+              {/* Selected Payment Method */}
+              <div className="gap-2 flex flex-col">
+                <label>Payment Method</label>
+                <div className="border p-2 rounded-md">{paymentMethod}</div>
+              </div>
+            </div>
+
+            {/* Continue to Triage */}
+            <div className="w-full flex items-center justify-center">
+              <Button
+                onClick={() =>
+                  router.push(
+                    `/triage?user=${encodeURIComponent(
+                      JSON.stringify(selectedUser)
+                    )}&payment=${encodeURIComponent(paymentMethod!)}`
+                  )
+                }
+                className="bg-green-1"
+              >
+                Continue to Triage
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
