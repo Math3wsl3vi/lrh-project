@@ -15,7 +15,7 @@ const Navbar = () => {
         </div>
         <div className="flex gap-5 flex-row">
           <div className="items-center border p-2 rounded-md cursor-pointer">
-            <h1>Lanet Regional Hospital</h1>
+            <h1>Hospital Name</h1>
           </div>
           <div className="flex items-center gap-5">
             <div className="cursor-pointer hover:bg-white hover:border hover:p-2 hover:rounded-full">

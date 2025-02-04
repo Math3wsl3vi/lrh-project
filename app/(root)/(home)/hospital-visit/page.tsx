@@ -63,7 +63,7 @@ const HospitalVisit = () => {
     <div className="h-screen w-full font-poppins flex justify-center p-2 overflow-scroll">
       <div className="w-full md:w-1/2">
         <h1 className="text-3xl text-center">
-          Welcome to Lanet Regional Hospital
+          Welcome to the Hospital
         </h1>
         <p className="text-center text-gray-400 mt-3">
           Enter the {"patient's"} Service Number/Name
