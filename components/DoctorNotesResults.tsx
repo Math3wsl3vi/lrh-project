@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { Input } from "./ui/input";
+import { useToast } from "@/hooks/use-toast";
 
 const DoctorNotesResults = () => {
   const router = useRouter()
   const { docNotes, setDocNotes } = useDocNotesStore();
+  const { toast } = useToast()
 
   // initialize state for the pharmacist input
   const [ pharmacistData, setPharmacistData ] = useState(
@@ -38,8 +40,9 @@ const HandleInputChange = (index: number, field: keyof (typeof pharmacistData)[n
       `${name} - ${dosage} - ${frequency} - ${duration}`)
       .join(",")
     })
-    alert("medication details updated")
-
+    toast({
+      description: "Patient data saved successfully.",
+    })
     router.push('patient-invoice')
   }
 
@@ -67,7 +70,9 @@ const HandleInputChange = (index: number, field: keyof (typeof pharmacistData)[n
           ))}
         </div>
       </div>
-      <div className="w-full pt-5">
+      <div className="w-full flex flex-row gap-10 pt-5">
+        <Button 
+        className="w-1/2 bg-green-1">Print medication</Button>
         <Button 
         onClick={savePharmacistData}
         className="w-1/2 bg-green-1">Continue</Button>

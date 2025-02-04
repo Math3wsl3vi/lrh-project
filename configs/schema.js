@@ -42,6 +42,9 @@ export const doctors = pgTable("doctors", {
   specialization: text("specialization").notNull(),
   phone: text("phone").unique().notNull(),
   createdAt: timestamp("created_at").defaultNow(),
+  email: text("email").unique().notNull(),
+  homeAddress: text("home_address"),
+  dob: date("dob").notNull(),
 });
 
 // Appointments Table
