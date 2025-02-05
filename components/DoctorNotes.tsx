@@ -23,7 +23,7 @@ const DoctorNotes = () => {
     setDocNotes({medication,diagnosis,symptoms})
     router.push('/pharmacy')
   
-  }
+  } 
 
   return (
     <>
@@ -63,7 +63,7 @@ const DoctorNotes = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[200px]">
             <DropdownMenuItem onClick={handleContinue}>Pharmacy</DropdownMenuItem>
-            <DropdownMenuItem>Lab</DropdownMenuItem>
+            <DropdownMenuItem onClick={()=> router.push('lab')}>Lab</DropdownMenuItem>
             <DropdownMenuItem>Consultant</DropdownMenuItem>
             <DropdownMenuItem>Radiology</DropdownMenuItem>
           </DropdownMenuContent>

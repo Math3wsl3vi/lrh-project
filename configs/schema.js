@@ -29,7 +29,6 @@ export const patients = pgTable("patients", {
   // Insurance
   insuranceProvider: text("insurance_provider"),
   insuranceNumber: text("insurance_number").unique(),
-  insuranceExpiry: date("insurance_expiry"),
 
   createdAt: timestamp("created_at").defaultNow(),
 });
@@ -41,11 +40,25 @@ export const doctors = pgTable("doctors", {
   name: text("name").notNull(),
   specialization: text("specialization").notNull(),
   phone: text("phone").unique().notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
   email: text("email").unique().notNull(),
-  homeAddress: text("home_address"),
   dob: date("dob").notNull(),
+  homeAddress: text("home_address"),
+  nationalId: text("national_id").unique().notNull(),
+  licenseNumber: text("license_number").unique().notNull(),
+  gender: text("gender").notNull(), 
+  experience: integer("experience").notNull(), 
+  emergencyContact: text("emergency_contact").notNull(),
+  workingHours: text("working_hours").notNull(), 
+  status: text("status").default("Active"), 
+  profileImage: text("profile_image"), 
+  department: text("department").notNull(),
+  nationality: text("nationality").notNull(),
+  languages: text("languages").notNull(), 
+  bio: text("bio"),
+  insuranceAccepted: text("insurance_accepted").notNull(), 
+  createdAt: timestamp("created_at").defaultNow(),
 });
+
 
 // Appointments Table
 export const appointments = pgTable("appointments", {

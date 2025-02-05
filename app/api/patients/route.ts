@@ -40,7 +40,6 @@ export async function POST(req: Request) {
       emergencyEmail: body.emergencyEmail,
       insuranceProvider: body.insuranceProvider,
       insuranceNumber: body.insuranceNumber,
-      insuranceExpiry: body.insuranceExpiry ? new Date(body.insuranceExpiry).toISOString() : null,  // ✅ Ensure ISO format
     }).returning();
     
     console.log(Object.keys(patients));
