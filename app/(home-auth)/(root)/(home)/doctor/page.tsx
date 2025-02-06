@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -97,6 +97,15 @@ const Doctor = () => {
         setLoading(false)
       }
     };
+
+    const [ user, setUser ] = useState<{ role: string} | null >(null)
+
+    useEffect(()=> {
+      const storedUser = localStorage.getItem("user");
+      if(storedUser){
+        setUser(JSON.parse(storedUser))
+      }
+    },[])
   
 
   return (
@@ -107,12 +116,15 @@ const Doctor = () => {
           <div className="border p-2 text-center active:bg-green-1 active:text-white cursor-pointer hover:text-white hover:bg-green-1">
             <h1>Doctor List</h1>
           </div>
-          <div
+          {user?.role === 'admin' && (
+            <div
             onClick={() => setIsOpen(true)}
             className="border p-2 text-center active:bg-green-1 active:text-white cursor-pointer hover:text-white hover:bg-green-1"
           >
             <h1>Register a Doctor</h1>
           </div>
+
+          )}
           <div className="border p-2 text-center active:bg-green-1 active:text-white cursor-pointer hover:text-white hover:bg-green-1">
             <h1>Appointments</h1>
           </div>
