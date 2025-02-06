@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Navbar = () => {
@@ -44,14 +45,16 @@ const Navbar = () => {
               />
             </div>
 
-            <div className="border rounded-full p-2 bg-white border-gray-300">
+            <Link
+            href={'/sign-in'}
+            className="border rounded-full p-2 bg-white border-gray-300">
               <Image
                 src="/images/user.png"
                 alt="image"
                 width={25}
                 height={25}
               />
-            </div>
+            </Link>
           </div>
         </div>
       </div>

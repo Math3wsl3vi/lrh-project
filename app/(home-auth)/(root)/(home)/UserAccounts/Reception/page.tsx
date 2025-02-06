@@ -1,11 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { userData } from "./../../../../lib/data";
+import React, { useEffect, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useUserStore } from "@/stores/UseStore";
+import { userData } from "@/lib/data";
 
 interface User {
   id: number;
@@ -17,13 +17,26 @@ interface User {
   dob: string;
 }
 
-const HospitalVisit = () => {
+const ReceptionUser = () => {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [filteredResults, setFilteredResults] = useState<User[]>([]);
   const [paymentMethod, setPaymentMethod] = useState<string | null>(null); // Store selected payment method
   const { selectedUser, setSelectedUser } = useUserStore();
   const router = useRouter();
+    const [user, setUser] = useState(null);
+  
+    useEffect(() => {
+      const storedUser = JSON.parse(localStorage.getItem("user") || "null");
+      if (!storedUser || storedUser.role !== "reception") {
+        router.push("/sign-in"); 
+      } else {
+        setUser(storedUser);
+      }
+    }, [router]);
+  
+    if (!user) return <p>Loading...</p>;
+  
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -200,4 +213,4 @@ const HospitalVisit = () => {
   );
 };
 
-export default HospitalVisit;
+export default ReceptionUser;

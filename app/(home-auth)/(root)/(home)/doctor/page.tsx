@@ -35,7 +35,7 @@ const Doctor = () => {
   const { toast } = useToast();
   const [loading, setLoading ] = useState(false)
 
-  const itemsPerPage = 10; 
+  const itemsPerPage = 12; 
   const [currentPage, setCurrentPage ] = useState(1);
   const totalPages = Math.ceil(DoctorList.length / itemsPerPage)
 
