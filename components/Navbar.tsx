@@ -1,8 +1,16 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [user, setUser] = useState<{ role: string } | null>(null);
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []); 
   return (
     <div className="w-full h-14 bg-slate-50 flex items-center ">
       <div className="w-[250px] h-full bg-[#21263c]">
@@ -12,7 +20,7 @@ const Navbar = () => {
       </div>
       <div className="flex-1 items-center flex justify-between px-5 gap-10">
         <div>
-          <h1 className="text-xl">Admin Dashboard</h1>
+          <h1 className="text-xl capitalize">{user?.role || 'User'} Dashboard</h1>
         </div>
         <div className="flex gap-5 flex-row">
           <div className="items-center border p-2 rounded-md cursor-pointer">

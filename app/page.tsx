@@ -14,19 +14,22 @@ export default function HomePage() {
       switch (user.role) {
         case 'doctor':
           router.push('/UserAccounts/Doctor')
+          break;
         case 'nurse':
           router.push('/UserAccounts/Nurse')
+          break;
         case 'pharmacy':
             router.push('/UserAccounts/Pharmacy')
+            break;
         case 'lab':
-              router.push('/UserAccounts/Lab')
-        case 'admin':
-                router.push('/UserAccounts/Admin')      
+              router.push('/UserAccounts/Lab')    
+              break;
         default:
+          router.push('/UserAccounts/Admin')      
           break;
       }
     }
-  }, []);
+  }, [router]);
 
   return <h1>You are not authorized to view this page kindly go back</h1>; // Placeholder while redirecting
 }

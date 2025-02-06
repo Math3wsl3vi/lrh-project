@@ -43,17 +43,28 @@ const SignIn = () => {
         default:
           break;
       }
+      toast({description:`Welcome ${user?.role}`})
     } else {
       setError("Invalid username or password");
     }
   };
   
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  
+
   const handleLogout = () => {
     localStorage.removeItem("user");
-    router.push("/sign-in");
-    toast({description:'User Logged Out Successfully. Login to access the service.'})
+    setUser(null); // Trigger re-render
+    toast({ description: "User Logged Out Successfully" });
+    console.log(user)
+  
+    setTimeout(() => {
+      router.replace("/sign-in");
+    }, 500);
   };
-
   return (
     <div className="flex items-center justify-center mt-[20vh]">
       <div className="border w-1/3 p-5 rounded-md">
