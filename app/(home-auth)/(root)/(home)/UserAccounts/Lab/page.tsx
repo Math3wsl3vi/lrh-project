@@ -10,7 +10,7 @@ const LabUser = () => {
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user") || "null");
-    if (!storedUser || storedUser.role !== "lab") {
+    if (!storedUser || storedUser.role !== "lab" || storedUser.role !== 'admin') {
       toast({description:'You are not authorized to visit this page'})
       router.push("/sign-in"); 
     } else {

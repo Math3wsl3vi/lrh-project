@@ -40,7 +40,6 @@ const SideBar = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-[#21263c] text-white border-none w-[250px] font-poppins">
                 <DropdownMenuItem className="w-full cursor-pointer hover:bg-green-1 text-sm mb-2">
-                    <Link href={'/hospital-visit'}>Reception</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="w-full cursor-pointer hover:bg-green-1 text-sm mb-2">
                     <Link href={'/'}>Triage</Link>

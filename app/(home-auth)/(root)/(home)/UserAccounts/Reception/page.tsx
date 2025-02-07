@@ -28,7 +28,7 @@ const ReceptionUser = () => {
   
     useEffect(() => {
       const storedUser = JSON.parse(localStorage.getItem("user") || "null");
-      if (!storedUser || storedUser.role !== "reception") {
+      if (!storedUser || storedUser.role !== "reception" || storedUser.role !== 'admin') {
         router.push("/sign-in"); 
       } else {
         setUser(storedUser);

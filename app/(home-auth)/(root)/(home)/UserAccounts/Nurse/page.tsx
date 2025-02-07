@@ -15,7 +15,7 @@ const NurseUser = () => {
 
    useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem("user") || "null");
-        if (!storedUser || storedUser.role !== "nurse") {
+        if (!storedUser || storedUser.role !== "nurse" || storedUser.role !== 'admin') {
           router.push("/sign-in"); 
           toast({description:'You are not authorized to visit this page'})
         } else {

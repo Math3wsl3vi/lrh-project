@@ -17,7 +17,7 @@ export default function DoctorPage() {
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user") || "null");
-    if (!storedUser || storedUser.role !== "doctor") {
+    if (!storedUser || storedUser.role !== "doctor" || storedUser.role !== 'admin') {
       toast({description:'You are not authorized to visit this page'})
       router.push("/sign-in"); 
     } else {

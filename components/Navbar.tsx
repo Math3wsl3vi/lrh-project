@@ -15,7 +15,7 @@ const Navbar = () => {
     <div className="w-full h-14 bg-slate-50 flex items-center ">
       <div className="w-[250px] h-full bg-[#21263c]">
         <div className="rounded-bl-xl bg-[#181c2e] w-[250px] h-full pl-4 pt-4">
-          <h1 className="text-2xl font-poppins text-white">HMS</h1>
+          <Link href={'/'} className="text-2xl font-poppins text-white">HMS</Link>
         </div>
       </div>
       <div className="flex-1 items-center flex justify-between px-5 gap-10">
