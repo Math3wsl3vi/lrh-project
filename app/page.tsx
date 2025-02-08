@@ -31,5 +31,5 @@ export default function HomePage() {
     }
   }, [router]);
 
-  return <h1>You are not authorized to view this page kindly go back</h1>; // Placeholder while redirecting
+  return <h1>You are not authorized to view this page kindly go back. Please wait while being redirected to the auth page.</h1>; // Placeholder while redirecting
 }

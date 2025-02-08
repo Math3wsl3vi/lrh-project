@@ -19,7 +19,7 @@ const PharmacyUser = () => {
   return (
     <div>
       <div className='flex justify-between'>
-        <h1 className='text-xl'>Pharmacy</h1>
+        <h1 className='text-xl'>Pharmacy page</h1>
         <div className='border p-1 px-3 rounded-md'>
           <h1>Dr. Mevi Lathews</h1>
         </div>
